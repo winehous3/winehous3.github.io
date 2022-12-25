@@ -48,7 +48,7 @@ while (isSunk == false && chances > 0) {
 
 // Alerta ao usuário que ele errou o chute
 
-        else if (guess !== location1 || guess !== location2 || guess !== location3 && guess >= 1 || guess <= 7) { 
+        else if (guess !== location1 || guess !== location2 || guess !== location3 && guess >= 1 && guess <= 7 && guess != false) { 
             alert("Errou");
         }
  }
@@ -86,8 +86,9 @@ Solução: Após acertar uma das posições, invalidar o número acertado para q
 
 2 - Não há um número limitado de chutes por jogo, o usuário poderá chutar quantas vezes quiser até ganhar a partida, ou seja,
 ele nunca perderá.
-(RESOLVIDO)
 
-3 - Letras, símbolos e valor vazio são aceitos como resposta.
-(RESOLVIDO)
+Solução: Setar um número limitado de chutes por jogo ou uma localição armadilha para que o usuário possa perder o jogo.
 
+3 - Letras e símbolos são aceitados como resposta.
+
+Solução: Invalidar letras e símbolos, possibilitar apenas números como resposta.*/
