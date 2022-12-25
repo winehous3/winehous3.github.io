@@ -24,6 +24,7 @@ while (isSunk == false && chances > 0) {
 
     if (guess < 1 || guess > 7 || guess == false || isNaN(guess)) {
         alert("Escolha um número válido!");
+        continue;
     } 
     
     else {
@@ -48,7 +49,7 @@ while (isSunk == false && chances > 0) {
 
 // Alerta ao usuário que ele errou o chute
 
-        else if (guess !== location1 || guess !== location2 || guess !== location3 && guess >= 1 && guess <= 7 && guess != false) { 
+        else if (guess !== location1 || guess !== location2 || guess !== location3) { 
             alert("Errou");
         }
  }
