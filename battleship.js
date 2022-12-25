@@ -2,12 +2,13 @@
 
 // Declaração de variáveis
 
-var randomLoc = Math.floor(Math.random() * 5);
+var randomLoc = Math.floor(Math.random() * 6);
 var location1 = randomLoc;
 var location2 = location1 + 1;
 var location3 = location2 + 1;
 var guess;
 var hits = 0;
+var chances = 5;
 var guesses = 0;
 var isSunk = false;
 var result = document.getElementById('res');
@@ -16,46 +17,64 @@ var result = document.getElementById('res');
 
 // Loop
 
-while (isSunk == false) {
-    guess = prompt("Escolha um número de 0 a 6):");
+while (isSunk == false && chances > 0) {
+    guess = prompt("Escolha um número de 1 a 7):");
 
 // Validação do número escolhido
 
-    if (guess < 0 || guess > 6) {
+    if (guess < 1 || guess > 7 || guess == false || isNaN(guess)) {
         alert("Escolha um número válido!");
     } 
     
     else {
-        guesses = guesses + 1;
+        chances--;
+        guesses++;
     }
 
 // Verificação de acerto
 
     if (guess == location1 || guess == location2 || guess == location3) {
         alert("Acertou!");
-        hits = hits + 1;
+        hits++;
 
 // Alerta ao usuário que ele ganhou o jogo
 
         if (hits == 3) {
             isSunk = true;
             alert("Você afundou o navio!");
+            victory();
         }
     }   
 
 // Alerta ao usuário que ele errou o chute
 
-        else {
+        else if (guess !== location1 || guess !== location2 || guess !== location3 && guess >= 1 || guess <= 7) { 
             alert("Errou");
         }
  }
 
-// Mostra as estatísticas do usuário após o jogo
+// Fim do Loop 
 
-var stats = "Você precisou de " + guesses + " chutes para afundar o navio, " +
- "então sua precisão foi de " + ((3/guesses) * 100 + "%");
-result.innerHTML = stats;
+// Funções de vitória ou derrota para o usuário
 
+function victory() {
+    var statsV = "Você precisou de " + guesses + " chutes para afundar o navio, " +
+    "então sua precisão foi de " + Math.floor((3/guesses) * 100) + "%";
+    result.innerHTML = statsV;
+}
+
+function loss(){
+    var statsL = "Você perdeu. Mas não se preocupe, você tem mais uma chance de jogar!"
+    result.innerHTML = statsL;
+}
+
+// Verifica se o número de chutes disponíveis se esgotaram, e se sim, finalizar a partida como uma derrota
+
+if (chances == 0 && hits < 3){
+    isSunk = true;
+    alert("Você perdeu")
+    loss();
+}
 /* 
 
 Problemas encontrados:   
@@ -67,9 +86,8 @@ Solução: Após acertar uma das posições, invalidar o número acertado para q
 
 2 - Não há um número limitado de chutes por jogo, o usuário poderá chutar quantas vezes quiser até ganhar a partida, ou seja,
 ele nunca perderá.
+(RESOLVIDO)
 
-Solução: Setar um número limitado de chutes por jogo ou uma localição armadilha para que o usuário possa perder o jogo.
+3 - Letras, símbolos e valor vazio são aceitos como resposta.
+(RESOLVIDO)
 
-3 - Letras e símbolos são aceitados como resposta.
-
-Solução: Invalidar letras e símbolos, possibilitar apenas números como resposta.*/
